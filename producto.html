@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle Producto</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">TechStore</a>
+        <a class="nav-link text-white" href="carrito.html">
+            Carrito <span id="contador" class="badge bg-danger">0</span>
+        </a>
+    </div>
+</nav>
+
+<!-- MAIN -->
+<main class="container mt-4">
+
+    <div class="row">
+
+        <!-- IMAGEN -->
+        <div class="col-md-6">
+            <img id="imagen" src="assets/img/producto1.png" class="img-fluid">
+        </div>
+
+        <!-- INFO -->
+        <div class="col-md-6">
+            <h2 id="nombre">Laptop Gamer</h2>
+            <p id="precio" class="lead">$800.000</p>
+
+            <p id="descripcion">
+                Potente laptop ideal para gaming y trabajo profesional.
+            </p>
+
+            <button class="btn btn-success agregar">Agregar al carrito</button>
+        </div>
+
+    </div>
+
+</main>
+
+<footer class="bg-dark text-white text-center p-3 mt-4">
+    TechStore Chile
+</footer>
+
+<script src="assets/js/script.js"></script>
+</body>
+</html>
