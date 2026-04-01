@@ -1,18 +1,15 @@
-// ===== CARRITO CON LOCALSTORAGE =====
-
-// Obtener carrito desde localStorage o crear uno vacío
+// ===== LOCALSTORAGE =====
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-// Elementos del DOM
-const botones = document.querySelectorAll(".agregar");
+// ===== CONTADOR =====
 const badge = document.getElementById("contador");
-
-// Mostrar cantidad al cargar
 if (badge) {
     badge.textContent = carrito.length;
 }
 
-// Agregar productos
+// ===== BOTONES AGREGAR =====
+const botones = document.querySelectorAll(".agregar");
+
 botones.forEach((boton, index) => {
     boton.addEventListener("click", () => {
 
@@ -24,38 +21,111 @@ botones.forEach((boton, index) => {
 
         carrito.push(producto);
 
-        // Guardar en localStorage
         localStorage.setItem("carrito", JSON.stringify(carrito));
 
-        // Actualizar contador
         badge.textContent = carrito.length;
     });
 });
 
 
-// ===== DETALLE PRODUCTO (producto.html) =====
+// ===== MOSTRAR CARRITO =====
+const lista = document.getElementById("lista-carrito");
 
+if (lista) {
+    mostrarCarrito();
+}
+
+function mostrarCarrito() {
+    lista.innerHTML = "";
+
+    carrito.forEach((producto, index) => {
+        const li = document.createElement("li");
+        li.classList.add("list-group-item", "d-flex", "justify-content-between");
+
+        li.innerHTML = `
+            ${producto}
+            <button class="btn btn-sm btn-danger eliminar" data-index="${index}">
+                Eliminar
+            </button>
+        `;
+
+        lista.appendChild(li);
+    });
+
+    eliminarProducto();
+}
+
+
+// ===== ELIMINAR PRODUCTO =====
+function eliminarProducto() {
+    const botonesEliminar = document.querySelectorAll(".eliminar");
+
+    botonesEliminar.forEach(boton => {
+        boton.addEventListener("click", (e) => {
+            const index = e.target.getAttribute("data-index");
+
+            carrito.splice(index, 1);
+
+            localStorage.setItem("carrito", JSON.stringify(carrito));
+
+            mostrarCarrito();
+
+            if (badge) {
+                badge.textContent = carrito.length;
+            }
+        });
+    });
+}
+
+
+// ===== VACIAR CARRITO =====
+const btnVaciar = document.getElementById("vaciar");
+
+if (btnVaciar) {
+    btnVaciar.addEventListener("click", () => {
+        carrito = [];
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+        mostrarCarrito();
+
+        if (badge) {
+            badge.textContent = 0;
+        }
+    });
+}
+
+
+// ===== DETALLE PRODUCTO =====
 const params = new URLSearchParams(window.location.search);
 const producto = params.get("producto");
 
 const nombre = document.getElementById("nombre");
 const imagen = document.getElementById("imagen");
 const precio = document.getElementById("precio");
+const decripcion = document.getElementById("descripcion");
 
-if (producto === "1") {
-    nombre.textContent = "Laptop Gamer";
-    imagen.src = "assets/img/producto1.png";
-    precio.textContent = "$800.000";
-}
+// Cambiar contenido según producto
+switch (producto) {
+    case "1":
+        nombre.textContent = "Laptop Gamer";
+        imagen.src = "assets/img/producto1.png";
+        precio.textContent = "$800.000";
+        descripcion.textContent = "Potente laptop ideal para gaming y alto rendimiento.";
+        break;
 
-if (producto === "2") {
-    nombre.textContent = "Audífonos";
-    imagen.src = "assets/img/producto2.png";
-    precio.textContent = "$50.000";
-}
+    case "2":
+        nombre.textContent = "Audífonos";
+        imagen.src = "assets/img/producto2.png";
+        precio.textContent = "$50.000";
+        descripcion.textContent = "Audífonos con excelente calidad de sonido y cancelación de ruido.";
+        break;
 
-if (producto === "3") {
-    nombre.textContent = "Smartphone";
-    imagen.src = "assets/img/producto3.png";
-    precio.textContent = "$300.000";
+    case "3":
+        nombre.textContent = "Smartphone";
+        imagen.src = "assets/img/producto3.png";
+        precio.textContent = "$300.000";
+        descripcion.textContent = "Smartphone moderno con gran cámara y alto rendimiento.";
+        break;
+
+    default:
+        nombre.textContent = "Producto no encontrado";
 }
