@@ -25,7 +25,7 @@ Proyecto frontend de e-commerce desarrollado como parte del Módulo 2.
 
 ## 🔗 Repositorio
 
-(agrega aquí tu link de GitHub)
+https://github.com/FranciscoDiaz01/ecommerce-frontend-m2
 
 ## 👨‍💻 Autor
 
